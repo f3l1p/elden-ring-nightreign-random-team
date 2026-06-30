@@ -52,13 +52,13 @@ export const DEFAULT_CHARACTERS: Character[] = [
   {
     id: "scholar",
     name: "Scholar",
-    image: "/characters/scholar.svg",
+    image: "/characters/scholar.webp",
     enabled: true,
   },
   {
     id: "undertaker",
     name: "Undertaker",
-    image: "/characters/undertaker.svg",
+    image: "/characters/undertaker.webp",
     enabled: true,
   },
 ];
