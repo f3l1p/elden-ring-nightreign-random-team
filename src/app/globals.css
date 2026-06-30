@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold-100: #f5e6c0;
+  --color-gold-200: #e8cc85;
+  --color-gold-300: #d4a843;
+  --color-gold-400: #c5921a;
+  --color-gold-500: #a87415;
+  --color-gold-600: #8a5e10;
+  --color-dark-950: #0a0805;
+  --color-dark-900: #0f0c07;
+  --color-dark-800: #1a1509;
+  --color-dark-700: #231d0d;
+  --color-dark-600: #2e2511;
+  --font-cinzel: "Cinzel", serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    background-color: var(--color-dark-950);
+    color: #e8d5a3;
+    font-family: var(--font-inter);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-dark-800);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-gold-500);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold-300);
+  }
+}
+
+@layer utilities {
+  .text-gold {
+    color: var(--color-gold-300);
+  }
+
+  .text-gold-light {
+    color: var(--color-gold-100);
+  }
+
+  .bg-dark-900 {
+    background-color: var(--color-dark-900);
+  }
+
+  .bg-dark-800 {
+    background-color: var(--color-dark-800);
+  }
+
+  .bg-dark-700 {
+    background-color: var(--color-dark-700);
+  }
+
+  .border-gold {
+    border-color: var(--color-gold-400);
+  }
+
+  .border-gold-dim {
+    border-color: rgba(197, 146, 26, 0.3);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(197, 146, 26, 0.4), 0 0 40px rgba(197, 146, 26, 0.15);
+  }
+
+  .glow-gold-sm {
+    box-shadow: 0 0 10px rgba(197, 146, 26, 0.3), 0 0 20px rgba(197, 146, 26, 0.1);
+  }
+
+  .glow-gold-intense {
+    box-shadow: 0 0 30px rgba(197, 146, 26, 0.6), 0 0 60px rgba(197, 146, 26, 0.3), 0 0 90px rgba(197, 146, 26, 0.1);
+  }
+
+  .text-glow-gold {
+    text-shadow: 0 0 20px rgba(212, 168, 67, 0.8), 0 0 40px rgba(212, 168, 67, 0.4);
+  }
+
+  .ornament-line {
+    position: relative;
+  }
+
+  .ornament-line::before,
+  .ornament-line::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(197, 146, 26, 0.6));
+  }
+
+  .ornament-line::before {
+    right: calc(50% + 12px);
+    background: linear-gradient(to left, transparent, rgba(197, 146, 26, 0.6));
+  }
+
+  .ornament-line::after {
+    left: calc(50% + 12px);
+  }
+
+  .font-cinzel {
+    font-family: var(--font-cinzel);
+  }
+}
+
+/* Corner ornament pattern */
+.corner-ornament {
+  position: relative;
+}
+.corner-ornament::before,
+.corner-ornament::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--color-gold-400);
+  border-style: solid;
+  opacity: 0.7;
+}
+.corner-ornament::before {
+  top: -2px;
+  left: -2px;
+  border-width: 2px 0 0 2px;
+}
+.corner-ornament::after {
+  bottom: -2px;
+  right: -2px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Slot machine reel mask */
+.reel-mask {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+}
+
+/* Victory glow animation */
+@keyframes victoryPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(197, 146, 26, 0.4), 0 0 40px rgba(197, 146, 26, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(197, 146, 26, 0.7), 0 0 80px rgba(197, 146, 26, 0.35), 0 0 120px rgba(197, 146, 26, 0.15);
+  }
+}
+
+.victory-glow {
+  animation: victoryPulse 1.5s ease-in-out infinite;
+}
+
+/* Particle shimmer */
+@keyframes shimmer {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-60px) scale(1.2); }
+}
+
+.particle {
+  animation: shimmer 1s ease-out forwards;
+}
+
+/* Background texture */
+.bg-texture {
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(197, 146, 26, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(197, 146, 26, 0.03) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c5921a' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
