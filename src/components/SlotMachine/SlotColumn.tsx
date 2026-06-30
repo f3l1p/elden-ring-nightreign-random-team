@@ -62,8 +62,8 @@ export function SlotColumn({
             : "border-[rgba(197,146,26,0.35)]"
         }`}
         style={{
-          width: "clamp(140px, 22vw, 220px)",
-          height: "clamp(200px, 32vw, 320px)",
+          width: "clamp(80px, 16vw, 160px)",
+          height: "clamp(120px, 24vw, 240px)",
           background: `linear-gradient(180deg, ${bgColor} 0%, #0f0c07 40%, #0a0805 100%)`,
         }}
       >
@@ -156,8 +156,8 @@ export function SlotColumn({
 
       {/* Character name label */}
       <motion.div
-        className="mt-3 text-center overflow-hidden"
-        style={{ minHeight: 28 }}
+        className="mt-2 text-center overflow-hidden"
+        style={{ minHeight: 22 }}
       >
         <AnimatePresence mode="wait">
           {showResult && (

@@ -23,8 +23,7 @@
 
   html,
   body {
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
   }
 
   body {
@@ -33,6 +32,8 @@
     font-family: var(--font-inter);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   ::-webkit-scrollbar {

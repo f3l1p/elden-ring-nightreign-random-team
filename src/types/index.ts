@@ -3,7 +3,6 @@ export interface Character {
   name: string;
   image: string;
   enabled: boolean;
-  custom?: boolean;
 }
 
 export type SpinState = "idle" | "spinning" | "stopping" | "done";

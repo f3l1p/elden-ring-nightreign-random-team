@@ -2,16 +2,14 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Trash2 } from "lucide-react";
 import type { Character } from "@/types";
 
 interface CharacterCardProps {
   character: Character;
   onToggle: (id: string) => void;
-  onDelete?: (id: string) => void;
 }
 
-export function CharacterCard({ character, onToggle, onDelete }: CharacterCardProps) {
+export function CharacterCard({ character, onToggle }: CharacterCardProps) {
   return (
     <motion.div
       layout
@@ -19,7 +17,7 @@ export function CharacterCard({ character, onToggle, onDelete }: CharacterCardPr
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.2 }}
-      className={`relative flex items-center gap-3 p-3 border transition-all duration-200 cursor-pointer group ${
+      className={`relative flex items-center gap-3 p-3 border transition-all duration-200 cursor-pointer ${
         character.enabled
           ? "border-[rgba(197,146,26,0.5)] bg-[rgba(197,146,26,0.05)]"
           : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)] opacity-50"
@@ -55,11 +53,6 @@ export function CharacterCard({ character, onToggle, onDelete }: CharacterCardPr
         >
           {character.name}
         </p>
-        {character.custom && (
-          <span className="text-[10px] tracking-widest uppercase text-[rgba(197,146,26,0.4)]">
-            Custom
-          </span>
-        )}
       </div>
 
       {/* Toggle */}
@@ -78,20 +71,6 @@ export function CharacterCard({ character, onToggle, onDelete }: CharacterCardPr
           }`}
         />
       </div>
-
-      {/* Delete button (custom chars only) */}
-      {character.custom && onDelete && (
-        <button
-          className="flex-shrink-0 ml-1 text-[rgba(197,146,26,0.3)] hover:text-red-400 transition-colors duration-200 p-1 cursor-pointer opacity-0 group-hover:opacity-100"
-          onClick={(e) => {
-            e.stopPropagation();
-            onDelete(character.id);
-          }}
-          aria-label="Delete character"
-        >
-          <Trash2 size={14} />
-        </button>
-      )}
     </motion.div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { SlotMachine } from "@/components/SlotMachine/SlotMachine";
 import { SettingsModal } from "@/components/Settings/SettingsModal";
@@ -15,25 +15,34 @@ export default function Home() {
   );
   const [settingsOpen, setSettingsOpen] = useState(false);
 
+  useEffect(() => {
+    if (!isHydrated) return;
+    const defaultsById = new Map(DEFAULT_CHARACTERS.map((c) => [c.id, c]));
+    let needsUpdate = false;
+
+    const reconciled = characters.map((c) => {
+      const def = defaultsById.get(c.id);
+      if (def && (def.image !== c.image || def.name !== c.name)) {
+        needsUpdate = true;
+        return { ...c, image: def.image, name: def.name };
+      }
+      return c;
+    });
+
+    const existingIds = new Set(characters.map((c) => c.id));
+    const missing = DEFAULT_CHARACTERS.filter((c) => !existingIds.has(c.id));
+    if (missing.length > 0) needsUpdate = true;
+
+    if (needsUpdate) {
+      setCharacters([...reconciled, ...missing]);
+    }
+  }, [isHydrated, characters, setCharacters]);
+
   const handleToggle = useCallback(
     (id: string) => {
       setCharacters((prev) =>
         prev.map((c) => (c.id === id ? { ...c, enabled: !c.enabled } : c))
       );
-    },
-    [setCharacters]
-  );
-
-  const handleAdd = useCallback(
-    (character: Character) => {
-      setCharacters((prev) => [...prev, character]);
-    },
-    [setCharacters]
-  );
-
-  const handleDelete = useCallback(
-    (id: string) => {
-      setCharacters((prev) => prev.filter((c) => c.id !== id));
     },
     [setCharacters]
   );
@@ -47,7 +56,7 @@ export default function Home() {
   }, [setCharacters]);
 
   return (
-    <main className="relative flex h-screen w-screen items-center justify-center overflow-hidden bg-texture">
+    <main className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-texture py-6 sm:py-8">
       {/* Ambient background layers */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -75,7 +84,7 @@ export default function Home() {
 
       {/* Content */}
       <motion.div
-        className="relative z-10 flex flex-col items-center gap-8 px-4 w-full max-w-4xl"
+        className="relative z-10 flex flex-col items-center gap-4 sm:gap-5 px-4 w-full max-w-4xl"
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -83,7 +92,7 @@ export default function Home() {
         {/* Title */}
         <div className="text-center">
           <motion.p
-            className="font-cinzel text-[10px] sm:text-xs tracking-[0.4em] uppercase text-[rgba(197,146,26,0.5)] mb-2"
+            className="font-cinzel text-[10px] sm:text-xs tracking-[0.4em] uppercase text-[rgba(197,146,26,0.5)] mb-1"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -91,7 +100,7 @@ export default function Home() {
             Elden Ring
           </motion.p>
           <motion.h1
-            className="font-cinzel font-black text-3xl sm:text-5xl tracking-[0.1em] uppercase leading-none"
+            className="font-cinzel font-black text-3xl sm:text-4xl tracking-[0.1em] uppercase leading-none"
             style={{
               background:
                 "linear-gradient(180deg, #f5e6c0 0%, #d4a843 50%, #8a5e10 100%)",
@@ -107,7 +116,7 @@ export default function Home() {
             Nightreign
           </motion.h1>
           <motion.p
-            className="font-cinzel text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[rgba(197,146,26,0.4)] mt-2"
+            className="font-cinzel text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[rgba(197,146,26,0.4)] mt-1"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.45 }}
@@ -150,8 +159,6 @@ export default function Home() {
         onClose={() => setSettingsOpen(false)}
         characters={characters}
         onToggle={handleToggle}
-        onAdd={handleAdd}
-        onDelete={handleDelete}
         onEnableAll={handleEnableAll}
         onDisableAll={handleDisableAll}
       />

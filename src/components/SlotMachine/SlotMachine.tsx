@@ -38,11 +38,11 @@ export function SlotMachine({ characters, onOpenSettings }: SlotMachineProps) {
   const noCharacters = enabledCharacters.length === 0;
 
   return (
-    <div className="flex flex-col items-center gap-10 w-full">
+    <div className="flex flex-col items-center gap-5 sm:gap-6 w-full">
       {/* Machine frame */}
       <div className="relative">
         {/* Decorative top bar */}
-        <div className="flex items-center justify-center gap-4 mb-8">
+        <div className="flex items-center justify-center gap-4 mb-7">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[rgba(197,146,26,0.6)]" />
           <div className="flex items-center gap-2">
             <span className="text-[#d4a843] opacity-60 text-xs">✦</span>
@@ -55,7 +55,7 @@ export function SlotMachine({ characters, onOpenSettings }: SlotMachineProps) {
         </div>
 
         {/* Three columns */}
-        <div className="flex items-end gap-4 sm:gap-6">
+        <div className="flex items-end justify-center gap-2 sm:gap-6">
           {([0, 1, 2] as const).map((i) => (
             <SlotColumn
               key={i}
@@ -70,7 +70,7 @@ export function SlotMachine({ characters, onOpenSettings }: SlotMachineProps) {
         </div>
 
         {/* Decorative bottom bar */}
-        <div className="flex items-center justify-center gap-4 mt-8">
+        <div className="flex items-center justify-center gap-4 mt-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[rgba(197,146,26,0.4)]" />
           <div className="w-2 h-2 rotate-45 border border-[rgba(197,146,26,0.5)]" />
           <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[rgba(197,146,26,0.4)]" />
@@ -92,7 +92,7 @@ export function SlotMachine({ characters, onOpenSettings }: SlotMachineProps) {
       </AnimatePresence>
 
       {/* Controls */}
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-3">
         {/* Spin button */}
         <motion.div
           whileTap={{ scale: 0.96 }}

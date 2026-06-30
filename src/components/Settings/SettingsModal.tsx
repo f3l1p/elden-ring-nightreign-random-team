@@ -3,7 +3,6 @@
 import { AnimatePresence } from "framer-motion";
 import { Modal } from "@/components/ui/Modal";
 import { CharacterCard } from "./CharacterCard";
-import { AddCharacterForm } from "./AddCharacterForm";
 import type { Character } from "@/types";
 
 interface SettingsModalProps {
@@ -11,8 +10,6 @@ interface SettingsModalProps {
   onClose: () => void;
   characters: Character[];
   onToggle: (id: string) => void;
-  onAdd: (character: Character) => void;
-  onDelete: (id: string) => void;
   onEnableAll: () => void;
   onDisableAll: () => void;
 }
@@ -22,8 +19,6 @@ export function SettingsModal({
   onClose,
   characters,
   onToggle,
-  onAdd,
-  onDelete,
   onEnableAll,
   onDisableAll,
 }: SettingsModalProps) {
@@ -60,23 +55,10 @@ export function SettingsModal({
       <div className="space-y-2">
         <AnimatePresence>
           {characters.map((char) => (
-            <CharacterCard
-              key={char.id}
-              character={char}
-              onToggle={onToggle}
-              onDelete={char.custom ? onDelete : undefined}
-            />
+            <CharacterCard key={char.id} character={char} onToggle={onToggle} />
           ))}
         </AnimatePresence>
       </div>
-
-      {/* Add custom character */}
-      <AddCharacterForm onAdd={onAdd} />
-
-      {/* Bottom note */}
-      <p className="mt-5 text-[10px] text-[rgba(197,146,26,0.25)] tracking-widest uppercase text-center font-cinzel">
-        Place images in /public/characters · Sounds in /public/sounds
-      </p>
     </Modal>
   );
 }
