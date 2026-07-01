@@ -4,6 +4,8 @@ import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { SlotMachine } from "@/components/SlotMachine/SlotMachine";
 import { SettingsModal } from "@/components/Settings/SettingsModal";
+import { SoundToggle } from "@/components/ui/SoundToggle";
+import { AudioProvider } from "@/hooks/useAudio";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { DEFAULT_CHARACTERS } from "@/data/characters";
 import type { Character } from "@/types";
@@ -56,7 +58,10 @@ export default function Home() {
   }, [setCharacters]);
 
   return (
+    <AudioProvider>
     <main className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden bg-texture py-6 sm:py-8">
+      <SoundToggle />
+
       {/* Ambient background layers */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -163,5 +168,6 @@ export default function Home() {
         onDisableAll={handleDisableAll}
       />
     </main>
+    </AudioProvider>
   );
 }

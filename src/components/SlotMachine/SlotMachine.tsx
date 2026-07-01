@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SlotColumn } from "./SlotColumn";
 import { Button } from "@/components/ui/Button";
 import { useSlotMachine } from "@/hooks/useSlotMachine";
+import { useAudio } from "@/hooks/useAudio";
 import type { Character } from "@/types";
 import { getEnabledCharacters } from "@/lib/utils";
 import { RefreshCw } from "lucide-react";
@@ -16,6 +17,7 @@ interface SlotMachineProps {
 
 export function SlotMachine({ characters, onOpenSettings }: SlotMachineProps) {
   const enabledCharacters = getEnabledCharacters(characters);
+  const { playSfx } = useAudio();
 
   const {
     spin,
@@ -31,8 +33,9 @@ export function SlotMachine({ characters, onOpenSettings }: SlotMachineProps) {
       reset();
       return;
     }
+    playSfx("/sounds/grace.mp3");
     spin();
-  }, [isDone, reset, spin]);
+  }, [isDone, reset, spin, playSfx]);
 
   const canSpin = enabledCharacters.length >= 1 && !isSpinning;
   const noCharacters = enabledCharacters.length === 0;
